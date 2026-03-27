@@ -1,12 +1,10 @@
 # Metamod-FWGS
 
-This is fork of [Metamod-R](https://github.com/rehlds/metamod-r) for use with Xash3D FWGS engine on many different architectures & platforms.
-
-Original Metamod-R contains a lot of x86 JIT optimizations, patching hacks, constrained by binary compatibility with ReHLDS and legacy game libraries, and not flexible enough to be compatible with wide variety of compilers/toolchains and architectures.
+Fork of Metamod, intended for use with Xash3D FWGS engine on many different architectures & platforms. Original [Metamod-R](https://github.com/rehlds/metamod-r) contains a lot of x86 JIT optimizations, memory patching hacks, constrained by binary compatibility with ReHLDS and legacy game libraries, and not flexible enough to be compatible with wide variety of compilers/toolchains and architectures.
 
 ## Documentation
 
-Documentation is similar with Metamod-R, so we do not have any specific documentation for this project.
+Documentation is mostly similar with Metamod-R, so at this point we do not have any specific documentation for this project.
 
 * ![en](https://i.imgur.com/rm67tUZ.png) [English documentation](https://rehlds.dev/docs/metamod-r/)
 * ![ru](https://i.imgur.com/ItziiKg.png) [Русская документация](https://rehlds.dev/ru/docs/metamod-r/)

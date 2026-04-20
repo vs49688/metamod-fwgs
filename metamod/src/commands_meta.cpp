@@ -113,7 +113,7 @@ void cmd_meta_version()
 		META_CONS("usage: meta version");
 		return;
 	}
-	meta_print_version_info();
+	meta_print_version_info(nullptr);
 }
 
 // "meta version" client command.
@@ -123,7 +123,7 @@ void client_meta_version(edict_t *pEntity)
 		META_CLIENT(pEntity, "usage: meta version");
 		return;
 	}
-	meta_print_version_info();
+	meta_print_version_info(pEntity);
 }
 
 // "meta gpl" console command.

@@ -57,7 +57,7 @@ void metamod_startup()
 	META_CONS("   This is free software, and you are welcome to redistribute it");
 	META_CONS("   under certain conditions; type `meta gpl' for details.");
 
-	meta_print_version_info();
+	meta_print_version_info(nullptr);
 
 	// Get gamedir, very early on, because it seems we need it all over the
 	// place here at the start.
@@ -447,14 +447,28 @@ bool meta_load_gamedll()
 	return true;
 }
 
-void meta_print_version_info()
+void meta_print_version_info(edict_t *pEntity)
 {
-	META_CONS("   ");
-	META_CONS("Metamod-FWGS version %s", APP_VERSION);
-	META_CONS("Platform     : %s", BuildInfo::GetPlatform());
-	META_CONS("Architecture : %s", BuildInfo::GetArchitecture());
-	META_CONS("Build date   : " __TIME__ " " __DATE__);
-	META_CONS("Commit hash  : " APP_COMMIT_SHA);
-	META_CONS("API version  : " META_INTERFACE_VERSION);
-	META_CONS("   ");
+	if (pEntity)
+	{
+		META_CLIENT(pEntity, "   ");
+		META_CLIENT(pEntity, "Metamod-FWGS version %s", APP_VERSION);
+		META_CLIENT(pEntity, "Platform     : %s", BuildInfo::GetPlatform());
+		META_CLIENT(pEntity, "Architecture : %s", BuildInfo::GetArchitecture());
+		META_CLIENT(pEntity, "Build date   : " __TIME__ " " __DATE__);
+		META_CLIENT(pEntity, "Commit hash  : " APP_COMMIT_SHA);
+		META_CLIENT(pEntity, "API version  : " META_INTERFACE_VERSION);
+		META_CLIENT(pEntity, "   ");
+	}
+	else
+	{
+		META_CONS("   ");
+		META_CONS("Metamod-FWGS version %s", APP_VERSION);
+		META_CONS("Platform     : %s", BuildInfo::GetPlatform());
+		META_CONS("Architecture : %s", BuildInfo::GetArchitecture());
+		META_CONS("Build date   : " __TIME__ " " __DATE__);
+		META_CONS("Commit hash  : " APP_COMMIT_SHA);
+		META_CONS("API version  : " META_INTERFACE_VERSION);
+		META_CONS("   ");
+	}
 }

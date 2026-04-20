@@ -39,6 +39,25 @@ int g_requestid_counter = 0;
 bool g_metamod_active = false;
 bool g_dedicated_server = false;
 
+static const char *get_localinfo_or_env(const char *env, const char *localinfo, const char *desc)
+{
+	const char *val;
+
+	val = LOCALINFO(const_cast<char*>(localinfo));
+	if (val && *val != '\0') {
+		META_LOG("%s specified via localinfo: %s", desc, val);
+		return val;
+	}
+
+	val = getenv(env);
+	if (val && *val != '\0') {
+		META_LOG("%s specified via environment: %s", desc, val);
+		return val;
+	}
+
+	return nullptr;
+}
+
 // Very first metamod function that's run.
 // Do startup operations...
 void metamod_startup()
@@ -81,10 +100,8 @@ void metamod_startup()
 	g_config->init(g_global_options);
 
 	// Find config file
-	const char *cp = LOCALINFO("mm_configfile");
+	const char *cp = get_localinfo_or_env("MM_CONFIGFILE", "mm_configfile", "Configfile");
 	if (cp && *cp != '\0') {
-		META_LOG("Configfile specified via localinfo: %s", cp);
-
 		if (is_file_exists_in_gamedir(cp)) {
 			Q_strlcpy(configFile, cp);
 		}
@@ -113,33 +130,28 @@ void metamod_startup()
 		g_config->load(configFile);
 
 	// Now, override config options with localinfo commandline options.
-	cp = LOCALINFO("mm_debug");
+	cp = get_localinfo_or_env("MM_DEBUG", "mm_debug", "Debuglevel");
 	if (cp && *cp != '\0') {
-		META_LOG("Debuglevel specified via localinfo: %s", cp);
 		g_config->set("debuglevel", cp);
 	}
 
-	cp = LOCALINFO("mm_gamedll");
+	cp = get_localinfo_or_env("MM_GAMEDLL", "mm_gamedll", "Gamedll");
 	if (cp && *cp != '\0') {
-		META_LOG("Gamedll specified via localinfo: %s", cp);
 		g_config->set("gamedll", cp);
 	}
 
-	cp = LOCALINFO("mm_execcfg");
+	cp = get_localinfo_or_env("MM_EXECCFG", "mm_execcfg", "Execcfg");
 	if (cp && *cp != '\0') {
-		META_LOG("Execcfg specified via localinfo: %s", cp);
 		g_config->set("exec_cfg", cp);
 	}
 
-	cp = LOCALINFO("mm_clientmeta");
+	cp = get_localinfo_or_env("MM_CLIENTMETA", "mm_clientmeta", "Clientmeta");
 	if (cp && *cp != '\0') {
-		META_LOG("Clientmeta specified via localinfo: %s", cp);
 		g_config->set("clientmeta", cp);
 	}
 
-	cp = LOCALINFO("mm_dynalign_list");
+	cp = get_localinfo_or_env("MM_DYNALIGN_LIST", "mm_dynalign_list", "Dynamic alignment list");
 	if (cp && *cp != '\0') {
-		META_LOG("Dynamic alignment list specified via localinfo: %s", cp);
 		g_config->set("dynalign_list", cp);
 	}
 
@@ -191,10 +203,8 @@ void metamod_startup()
 	//
 	// In fact, we need gamedir even earlier, so moved up above.
 
-	const char *pf = LOCALINFO("mm_pluginsfile");
+	const char *pf = get_localinfo_or_env("MM_PLUGINSFILE", "mm_pluginsfile", "Pluginfile");
 	if (pf && *pf != '\0') {
-		META_LOG("Pluginfile specified via localinfo: %s", pf);
-
 		if (is_file_exists_in_gamedir(pf)) {
 			Q_strlcpy(pluginFile, pf);
 		}

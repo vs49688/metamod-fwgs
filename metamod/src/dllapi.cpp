@@ -34,6 +34,7 @@ static void MM_PRE_HOOK mm_ClientCommand(edict_t *pEntity)
 {
 	if (!g_config->m_clientmeta && !Q_strcmp(CMD_ARGV(0), "meta")) {
 		client_meta(pEntity);
+		return;
 	}
 
 	META_DLLAPI_HANDLE_void(FN_CLIENTCOMMAND, pfnClientCommand, (pEntity));

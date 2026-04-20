@@ -60,7 +60,13 @@ void EXT_FUNC server_meta()
 void EXT_FUNC client_meta(edict_t* pEntity)
 {
 	const char *cmd = CMD_ARGV(1);
-	META_LOG("ClientCommand 'meta %s' from player '%s'", CMD_ARGS(), STRING(pEntity->v.netname));
+	const char *args = CMD_ARGS();
+	const char *netname = STRING(pEntity->v.netname);
+
+	if (args == nullptr)
+		META_LOG("ClientCommand 'meta' from player '%s'", netname);
+	else
+		META_LOG("ClientCommand 'meta %s' from player '%s'", args, netname);
 
 	// arguments: none
 	if (!Q_strcmp(cmd, "version"))
@@ -113,7 +119,7 @@ void cmd_meta_version()
 		META_CONS("usage: meta version");
 		return;
 	}
-	meta_print_version_info();
+	meta_print_version_info(nullptr);
 }
 
 // "meta version" client command.
@@ -123,7 +129,7 @@ void client_meta_version(edict_t *pEntity)
 		META_CLIENT(pEntity, "usage: meta version");
 		return;
 	}
-	meta_print_version_info();
+	meta_print_version_info(pEntity);
 }
 
 // "meta gpl" console command.

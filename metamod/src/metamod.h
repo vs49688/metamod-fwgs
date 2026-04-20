@@ -90,7 +90,7 @@ void metamod_startup();
 
 bool meta_init_gamedll();
 bool meta_load_gamedll();
-void meta_print_version_info();
+void meta_print_version_info(edict_t *pEntity);
 
 // lotsa macros...
 

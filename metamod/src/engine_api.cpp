@@ -20,7 +20,7 @@
 	SETUP_API_CALLS_void(FN_TYPE, pfnName, g_engineapi_info); \
 	char buf[MAX_STRBUF_LEN]; \
 	va_list ap; \
-	META_DEBUG(loglevel, ("In %s: fmt=%s", pfn_string, fmt_arg)); \
+	META_DEBUG(loglevel, "In %s: fmt=%s", pfn_string, fmt_arg); \
 	va_start(ap, fmt_arg); \
 	Q_vsnprintf(buf, sizeof(buf), fmt_arg, ap); \
 	va_end(ap); \
@@ -33,7 +33,7 @@
 	SETUP_API_CALLS(ret_t, ret_init, FN_TYPE, pfnName, g_engineapi_info); \
 	char buf[MAX_STRBUF_LEN]; \
 	va_list ap; \
-	META_DEBUG(loglevel, ("In %s: fmt=%s", pfn_string, fmt_arg)); \
+	META_DEBUG(loglevel, "In %s: fmt=%s", pfn_string, fmt_arg); \
 	va_start(ap, fmt_arg); \
 	Q_vsnprintf(buf, sizeof(buf), fmt_arg, ap); \
 	va_end(ap); \
@@ -61,7 +61,7 @@ static int MM_POST_HOOK mm_RegUserMsg(const char *pszName, int iSize)
 
 	if (status == MRES_OVERRIDE)
 	{
-		META_DEBUG(loglevel, ("Returning (override) %s()", pfn_string));
+		META_DEBUG(loglevel, "Returning (override) %s()", pfn_string);
 		imsgid = override_ret;
 	}
 	else
@@ -470,7 +470,7 @@ static void mm_AlertMessage(ALERT_TYPE atype, const char *szFmt, ...)
 	char buf[MAX_STRBUF_LEN];
 	va_list ap;
 
-	META_DEBUG(loglevel, ("In %s: fmt=%s", pfn_string, szFmt));
+	META_DEBUG(loglevel, "In %s: fmt=%s", pfn_string, szFmt);
 	va_start(ap, szFmt);
 	int len = Q_vsnprintf(buf, sizeof(buf), szFmt, ap) + 1;
 	va_end(ap);

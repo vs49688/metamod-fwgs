@@ -176,7 +176,7 @@ void meta_print_version_info(edict_t *pEntity);
 		g_metaGlobals.prev_mres = prev_mres; \
 		g_metaGlobals.status = status; \
 		/* call plugin */ \
-		META_DEBUG(loglevel, ("Calling %s:%s%s()", iplug->file(), pfn_string, (post?"_Post":""))); \
+		META_DEBUG(loglevel, "Calling %s:%s%s()", iplug->file(), pfn_string, (post?"_Post":"")); \
 		pfn_routine pfn_args; \
 		/* plugin's result code */ \
 		mres = g_metaGlobals.mres; \
@@ -194,7 +194,7 @@ void meta_print_version_info(edict_t *pEntity);
 #define CALL_GAME_API_void(pfnName, pfn_args, api_table) \
 	g_CALL_API_count--; \
 	if (status == MRES_SUPERCEDE) { \
-		META_DEBUG(loglevel, ("Skipped (supercede) %s:%s()", g_GameDLL.file, pfn_string)); \
+		META_DEBUG(loglevel, "Skipped (supercede) %s:%s()", g_GameDLL.file, pfn_string); \
 		/* don't return here; superceded game routine, but still allow \
 		 * _post routines to run. \
 		 */ \
@@ -202,7 +202,7 @@ void meta_print_version_info(edict_t *pEntity);
 	else if (g_GameDLL.funcs.api_table) { \
 		pfn_routine = g_GameDLL.funcs.api_table->pfnName; \
 		if (pfn_routine) { \
-			META_DEBUG(loglevel, ("Calling %s:%s()", g_GameDLL.file, pfn_string)); \
+			META_DEBUG(loglevel, "Calling %s:%s()", g_GameDLL.file, pfn_string); \
 			pfn_routine pfn_args; \
 		} \
 		/* don't complain for NULL routines in NEW_DLL_FUNCTIONS  */ \
@@ -212,7 +212,7 @@ void meta_print_version_info(edict_t *pEntity);
 		} \
 	} \
 	else { \
-		META_DEBUG(loglevel, ("No api table defined for api call: %s:%s", g_GameDLL.file, pfn_string)); \
+		META_DEBUG(loglevel, "No api table defined for api call: %s:%s", g_GameDLL.file, pfn_string); \
 	} \
 	g_CALL_API_count++;
 
@@ -220,7 +220,7 @@ void meta_print_version_info(edict_t *pEntity);
 #define CALL_ENGINE_API_void(pfnName, pfn_args) \
 	g_CALL_API_count--; \
 	if (status == MRES_SUPERCEDE) { \
-		META_DEBUG(loglevel, ("Skipped (supercede) engine:%s()", pfn_string)); \
+		META_DEBUG(loglevel, "Skipped (supercede) engine:%s()", pfn_string); \
 		/* don't return here; superceded game routine, but still allow \
 		 * _post routines to run. \
 		 */ \
@@ -228,7 +228,7 @@ void meta_print_version_info(edict_t *pEntity);
 	else { \
 		pfn_routine = g_engine.funcs->pfnName; \
 		if (pfn_routine) { \
-			META_DEBUG(loglevel, ("Calling engine:%s()", pfn_string)); \
+			META_DEBUG(loglevel, "Calling engine:%s()", pfn_string); \
 			pfn_routine pfn_args; \
 		} \
 		else { \
@@ -287,7 +287,7 @@ void meta_print_version_info(edict_t *pEntity);
 			g_metaGlobals.override_ret = &pub_override_ret; \
 		} \
 		/* call plugin */ \
-		META_DEBUG(loglevel, ("Calling %s:%s%s()", iplug->file(), pfn_string, (post?"_Post":""))); \
+		META_DEBUG(loglevel, "Calling %s:%s%s()", iplug->file(), pfn_string, (post?"_Post":"")); \
 		dllret = pfn_routine pfn_args; \
 		/* plugin's result code */ \
 		mres = g_metaGlobals.mres; \
@@ -307,7 +307,7 @@ void meta_print_version_info(edict_t *pEntity);
 #define CALL_GAME_API(pfnName, pfn_args, api_table) \
 	g_CALL_API_count--; \
 	if (status == MRES_SUPERCEDE) { \
-		META_DEBUG(loglevel, ("Skipped (supercede) %s:%s()", g_GameDLL.file, pfn_string)); \
+		META_DEBUG(loglevel, "Skipped (supercede) %s:%s()", g_GameDLL.file, pfn_string); \
 		orig_ret = pub_orig_ret = override_ret; \
 		g_metaGlobals.orig_ret = &pub_orig_ret; \
 		/* don't return here; superceded game routine, but still allow \
@@ -317,7 +317,7 @@ void meta_print_version_info(edict_t *pEntity);
 	else if (g_GameDLL.funcs.api_table) { \
 		pfn_routine = g_GameDLL.funcs.api_table->pfnName; \
 		if (pfn_routine) { \
-			META_DEBUG(loglevel, ("Calling %s:%s()", g_GameDLL.file, pfn_string)); \
+			META_DEBUG(loglevel, "Calling %s:%s()", g_GameDLL.file, pfn_string); \
 			dllret = pfn_routine pfn_args; \
 			orig_ret = dllret; \
 		} \
@@ -328,7 +328,7 @@ void meta_print_version_info(edict_t *pEntity);
 		} \
 	} \
 	else { \
-		META_DEBUG(loglevel, ("No api table defined for api call: %s:%s", g_GameDLL.file, pfn_string)); \
+		META_DEBUG(loglevel, "No api table defined for api call: %s:%s", g_GameDLL.file, pfn_string); \
 	} \
 	g_CALL_API_count++;
 
@@ -336,7 +336,7 @@ void meta_print_version_info(edict_t *pEntity);
 #define CALL_ENGINE_API(pfnName, pfn_args) \
 	g_CALL_API_count--; \
 	if (status == MRES_SUPERCEDE) { \
-		META_DEBUG(loglevel, ("Skipped (supercede) engine:%s()", pfn_string)); \
+		META_DEBUG(loglevel, "Skipped (supercede) engine:%s()", pfn_string); \
 		orig_ret = pub_orig_ret = override_ret; \
 		g_metaGlobals.orig_ret = &pub_orig_ret; \
 		/* don't return here; superceded game routine, but still allow \
@@ -346,7 +346,7 @@ void meta_print_version_info(edict_t *pEntity);
 	else { \
 		pfn_routine = g_engine.funcs->pfnName; \
 		if (pfn_routine) { \
-			META_DEBUG(loglevel, ("Calling engine:%s()", pfn_string)); \
+			META_DEBUG(loglevel, "Calling engine:%s()", pfn_string); \
 			dllret = pfn_routine pfn_args; \
 			orig_ret = dllret; \
 		} \
@@ -363,7 +363,7 @@ void meta_print_version_info(edict_t *pEntity);
 		/*Restore backup*/ \
 		g_metaGlobals = backup_meta_globals; \
 	if (status == MRES_OVERRIDE) { \
-		META_DEBUG(loglevel, ("Returning (override) %s()", pfn_string)); \
+		META_DEBUG(loglevel, "Returning (override) %s()", pfn_string); \
 		return override_ret; \
 	} \
 	else \

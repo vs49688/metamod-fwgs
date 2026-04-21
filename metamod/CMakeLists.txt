@@ -77,6 +77,7 @@ else()
 		-Wno-class-memaccess
 		-fcf-protection=none
 		-Wno-maybe-uninitialized
+		-fno-strict-aliasing
 		-Wno-unused-but-set-variable)
 
     # debug mode flags
